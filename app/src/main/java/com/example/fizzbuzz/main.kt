@@ -21,18 +21,23 @@ fun fizzbuzz(num : Int) : String {
         if (num % checkMultiple == 0)
             // Could potentially check output to see if modification was successful.
             functionMap[checkMultiple]?.invoke(tokens)
-    if (tokens.size == 0)
+    if (tokens.isEmpty())
         return "$num"
     return tokens.joinToString(separator = "")
 }
 
-fun main() {
-    println("Hello world!")
+fun main(args: Array<String>) {
+    // Shame there isn't a walrus operator: (var maxVal := args[0].toIntOrNull()) != null
+    var maxVal = 100
+    if (!args.isEmpty() && args[0].toIntOrNull() != null) {
+        // Specified size
+        maxVal = args[0].toInt()
+        println("Using specified size $maxVal")
+    } else {
+        println("Using default size $maxVal")
+    }
 
-    val maxVal = 100
     for (index in 1..maxVal) {
-        // Can be extended...
-
         val fbString = fizzbuzz(index)
         println(fbString)
     }
