@@ -1,22 +1,29 @@
 package com.example.fizzbuzz
 
-import kotlin.text.StringBuilder
+import kotlin.collections.ArrayList
 
 fun fizzbuzz(num : Int) : String {
-    val builder = StringBuilder()
-    if (num % 3 == 0)
-        builder.append("fizz")
-    if (num % 5 == 0)
-        builder.append("buzz")
-    if (num % 7 == 0)
-        builder.append("bang")
-    if (num % 11 == 0) {
-        builder.clear()
-        builder.append("bong")
+    var tokens = ArrayList<String>();
+    val functionMap = mapOf(
+        3 to {tok: ArrayList<String> -> tok.add("fizz");},
+        5 to {tok: ArrayList<String> -> tok.add("buzz");},
+        7 to {tok: ArrayList<String> -> tok.add("bang");},
+        11 to {tok: ArrayList<String> -> tok.clear(); tok.add("bong");},
+        13 to {tok: ArrayList<String> -> run {
+            val itemWithB = tok.indexOfFirst { s -> s.startsWith("b") }
+            if (itemWithB == -1) tok.add("fezz")
+            else tok.add(itemWithB, "fezz")
+        }; true},
+        17 to {tok: ArrayList<String> -> tok.reverse(); true;}
+    )
+    for ((multiple, modifyFunc) in functionMap) {
+        if (num % multiple == 0)
+            // Could potentially check output of "modifyfunc" to see if modification was successful.
+            modifyFunc(tokens)
     }
-    if (builder.length != 0)
-        return builder.toString()
-    return "$num"
+    if (tokens.size == 0)
+        return "$num"
+    return tokens.joinToString(separator = "")
 }
 
 fun main() {
