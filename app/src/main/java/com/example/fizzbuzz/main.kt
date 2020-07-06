@@ -14,6 +14,10 @@ fun main() {
             builder.append("buzz")
         if (index % 7 == 0)
             builder.append("bang")
+        if (index % 11 == 0) {
+            builder.clear()
+            builder.append("bong")
+        }
         // Can be extended...
 
         val fbString = builder.toString()
