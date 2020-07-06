@@ -9,9 +9,10 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class FizzBuzzTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun fizzbuzz_1() {
+        // Just to test that the function is producing some output.
+        assertEquals("1", fizzbuzz(1))
     }
 }
