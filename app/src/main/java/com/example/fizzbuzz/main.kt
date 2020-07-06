@@ -16,11 +16,11 @@ fun fizzbuzz(num : Int) : String {
         }; true},
         17 to {tok: ArrayList<String> -> tok.reverse(); true;}
     )
-    for ((multiple, modifyFunc) in functionMap) {
-        if (num % multiple == 0)
-            // Could potentially check output of "modifyfunc" to see if modification was successful.
-            modifyFunc(tokens)
-    }
+    val values = functionMap.keys.sorted() // Checking in order 3, 5, 7...
+    for (checkMultiple in values)
+        if (num % checkMultiple == 0)
+            // Could potentially check output to see if modification was successful.
+            functionMap[checkMultiple]?.invoke(tokens)
     if (tokens.size == 0)
         return "$num"
     return tokens.joinToString(separator = "")
