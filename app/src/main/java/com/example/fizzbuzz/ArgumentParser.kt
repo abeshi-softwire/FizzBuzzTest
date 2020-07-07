@@ -1,6 +1,13 @@
 package com.example.fizzbuzz
 
 class ArgumentParser(val args: Array<String>) {
+    val helpText = """
+        Usage: main [options] [maxVal]
+        Options:
+            --help              print this help and exit
+            --enable [number]   enable the rule for that number
+            --disable [number]  disable the rule for that number
+    """.trimIndent()
     var helpOption = false
     var errorMsg: String? = null
     var toggleRules = mutableMapOf(
@@ -11,6 +18,7 @@ class ArgumentParser(val args: Array<String>) {
         13 to true,
         17 to true
     )
+    var maxVal = 100
     //var customFunctions = mutableMapOf<Int, Boolean>()
     init {
         // Parse args
@@ -29,6 +37,13 @@ class ArgumentParser(val args: Array<String>) {
                             errorMsg = "Expected int, got $arg"
                         }
                         nextArgEnable = null
+                    } else {
+                        // MaxVal
+                        arg.toIntOrNull()?.let {
+                            maxVal = it
+                        } ?: let {
+                            errorMsg = "Expected int, got $arg"
+                        }
                     }
                 }
             }

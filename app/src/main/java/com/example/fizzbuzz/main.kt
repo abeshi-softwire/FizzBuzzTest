@@ -27,19 +27,20 @@ fun fizzbuzz(num : Int) : String {
 }
 
 fun main(args: Array<String>) {
-    var maxVal = 100
-
-    // If first argument is a number, set maxVal = args[0]
-    // Else: tell user we're using default size.
-    args.firstOrNull()?.toInt()?.let {
-        maxVal = it
-        println("Using specified size $maxVal")
-    } ?: println("Using default size $maxVal")
+    val argParser = ArgumentParser(args)
+    if (argParser.errorMsg != null) {
+        println("Error: ${argParser.errorMsg}")
+        println(argParser.helpText)
+        return
+    } else if (argParser.helpOption) {
+        println(argParser.helpText)
+        return
+    }
 
     // We create a StringBuilder to build the output
     // since println() can be slow, we can create the string and only output once.
     val outputBuilder = StringBuilder()
-    for (index in 1..maxVal) {
+    for (index in 1..argParser.maxVal) {
         val fbString = fizzbuzz(index)
         outputBuilder.append(fbString)
         outputBuilder.append('\n')
