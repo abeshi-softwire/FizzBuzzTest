@@ -10,6 +10,9 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class FizzBuzzTest {
+    // All of these tests assume the operations are in increasing order: i.e.
+    // 3 * 5 * 7 = 105 is evaluated 3 -> 5 -> 7 and not any other order.
+
     @Test
     fun fizzbuzz_1() {
         // Just to test that the function is producing some output.

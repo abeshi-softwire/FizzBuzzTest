@@ -27,18 +27,22 @@ fun fizzbuzz(num : Int) : String {
 }
 
 fun main(args: Array<String>) {
-    // Shame there isn't a walrus operator: (var maxVal := args[0].toIntOrNull()) != null
     var maxVal = 100
-    if (!args.isEmpty() && args[0].toIntOrNull() != null) {
-        // Specified size
-        maxVal = args[0].toInt()
-        println("Using specified size $maxVal")
-    } else {
-        println("Using default size $maxVal")
-    }
 
+    // If first argument is a number, set maxVal = args[0]
+    // Else: tell user we're using default size.
+    args.firstOrNull()?.toInt()?.let {
+        maxVal = it
+        println("Using specified size $maxVal")
+    } ?: println("Using default size $maxVal")
+
+    // We create a StringBuilder to build the output
+    // since println() can be slow, we can create the string and only output once.
+    val outputBuilder = StringBuilder()
     for (index in 1..maxVal) {
         val fbString = fizzbuzz(index)
-        println(fbString)
+        outputBuilder.append(fbString)
+        outputBuilder.append('\n')
     }
+    print(outputBuilder.toString())
 }
